@@ -1,8 +1,8 @@
 //
-//  MovieViewModel.swift
+//  MovieDetailsViewModel.swift
 //  NetworkDemo
 //
-//  Created by Tatsuya Kaneko on 11/03/2022.
+//  Created by Tatsuya Kaneko on 12/03/2022.
 //
 
 import Foundation
@@ -10,20 +10,22 @@ import Combine
 import os.log
 
 @MainActor
-class MovieListViewModel: ObservableObject {
+class MovieDetailsViewModel: ObservableObject {
+    let id: Int
     let networkService: NetworkService
-    @Published var movies: [DataModel.Movie] = []
-   
-    init(networkService: NetworkService) {
+    @Published var movieDetails: DataModel.Movie.Details?
+    
+    init(id: Int, networkService: NetworkService) {
+        self.id = id
         self.networkService = networkService
     }
     
     func load() {
         Task {
             do {
-                let movies = try await networkService.load(resource: Resources.Movies.getPopular())
-                // TODO: add page support
-                self.movies = movies.results
+                let movieDetails = try await networkService.load(resource: Resources.Movie.getDetails(id: id))
+                print(movieDetails)
+                self.movieDetails = movieDetails
             } catch {
                 guard let appError = error as? AppError else {
                     Logger.network.error("unknown error on network service")

@@ -33,7 +33,7 @@ struct DataModel {
 }
 
 extension DataModel.Movie {
-    struct Details {
+    struct Details: Decodable {
         let id: Int
         let title: String
         let overview: String
