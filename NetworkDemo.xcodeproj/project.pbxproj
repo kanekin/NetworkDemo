@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		23ABD18527DF74550073D9EF /* CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD18427DF74550073D9EF /* CreditCell.swift */; };
+		23ABD18727DF95D30073D9EF /* AverageRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD18627DF95D30073D9EF /* AverageRateView.swift */; };
+		23ABD18927DF9AD50073D9EF /* SubmitRateButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD18827DF9AD50073D9EF /* SubmitRateButtonView.swift */; };
 		23AFF6CF27DB4BDC00FB612D /* NetworkDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AFF6CE27DB4BDC00FB612D /* NetworkDemoApp.swift */; };
 		23AFF6D127DB4BDC00FB612D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AFF6D027DB4BDC00FB612D /* ContentView.swift */; };
 		23AFF6D327DB4BDD00FB612D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23AFF6D227DB4BDD00FB612D /* Assets.xcassets */; };
@@ -52,6 +54,8 @@
 
 /* Begin PBXFileReference section */
 		23ABD18427DF74550073D9EF /* CreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCell.swift; sourceTree = "<group>"; };
+		23ABD18627DF95D30073D9EF /* AverageRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageRateView.swift; sourceTree = "<group>"; };
+		23ABD18827DF9AD50073D9EF /* SubmitRateButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitRateButtonView.swift; sourceTree = "<group>"; };
 		23AFF6CB27DB4BDC00FB612D /* NetworkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23AFF6CE27DB4BDC00FB612D /* NetworkDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDemoApp.swift; sourceTree = "<group>"; };
 		23AFF6D027DB4BDC00FB612D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				23E146FA27DBA428008FC97B /* CachedAsyncImage.swift */,
+				23ABD18627DF95D30073D9EF /* AverageRateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 				23E1470427DCF11F008FC97B /* MovieDetailsView.swift */,
 				23E1470627DF57C9008FC97B /* MovieDetailsTitleView.swift */,
 				23ABD18427DF74550073D9EF /* CreditCell.swift */,
+				23ABD18827DF9AD50073D9EF /* SubmitRateButtonView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -398,6 +404,7 @@
 			files = (
 				23AFF6D127DB4BDC00FB612D /* ContentView.swift in Sources */,
 				23E146FB27DBA428008FC97B /* CachedAsyncImage.swift in Sources */,
+				23ABD18727DF95D30073D9EF /* AverageRateView.swift in Sources */,
 				23E1470527DCF11F008FC97B /* MovieDetailsView.swift in Sources */,
 				23AFF71227DB622300FB612D /* AppError.swift in Sources */,
 				23AFF6CF27DB4BDC00FB612D /* NetworkDemoApp.swift in Sources */,
@@ -412,6 +419,7 @@
 				23E146FE27DCE1F4008FC97B /* MovieDetailsScreen.swift in Sources */,
 				23E1470727DF57C9008FC97B /* MovieDetailsTitleView.swift in Sources */,
 				23E146F827DB8B4D008FC97B /* MovieListCell.swift in Sources */,
+				23ABD18927DF9AD50073D9EF /* SubmitRateButtonView.swift in Sources */,
 				23AFF70227DB591C00FB612D /* Resource.swift in Sources */,
 				23AFF6FF27DB590900FB612D /* MovieListViewModel.swift in Sources */,
 				23AFF70A27DB5C9300FB612D /* NetworkService.swift in Sources */,

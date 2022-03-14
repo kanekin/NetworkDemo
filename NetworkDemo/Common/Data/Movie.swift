@@ -67,7 +67,7 @@ extension DataModel.Movie {
 }
 
 extension DataModel.Movie.Credits {
-    struct Cast: Decodable, Identifiable, Hashable {
+    struct Cast: Decodable, Identifiable, Hashable, Equatable {
         let id: Int
         let name: String?
         let character: String?
@@ -79,9 +79,13 @@ extension DataModel.Movie.Credits {
             case character
             case profilePath = "profile_path"
         }
+        
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            return lhs.id == rhs.id
+        }
     }
     
-    struct Crew: Decodable, Identifiable, Hashable {
+    struct Crew: Decodable, Identifiable, Hashable, Equatable {
         let id: Int
         let name: String?
         let job: String?
@@ -92,6 +96,10 @@ extension DataModel.Movie.Credits {
             case name
             case job
             case profilePath = "profile_path"
+        }
+        
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            return lhs.id == rhs.id
         }
     }
 }

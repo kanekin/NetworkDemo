@@ -13,15 +13,21 @@ struct MovieDetailsTitleView: View {
     var body: some View {
         titleImage()
             .overlay {
-                Text(details?.title ?? "")
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
-                    .font(.largeTitle)
-                    .padding()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                    .background {
-                        LinearGradient(gradient: Gradient(colors: Color.gradient), startPoint: .top, endPoint: .bottom)
-                    }
+                VStack(alignment: .leading) {
+                    Spacer()
+                    Text(details?.title ?? "")
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                        .font(.largeTitle)
+                    AverageRateView(voteAverage: details?.voteAverage)
+                        .foregroundColor(.white)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background {
+                    LinearGradient(gradient: Gradient(colors: Color.gradient), startPoint: .top, endPoint: .bottom)
+                }
+                
             }
     }
     

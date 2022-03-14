@@ -11,6 +11,7 @@ struct MovieDetailsView: View {
     let details: DataModel.Movie.Details?
     @Binding var credits: DataModel.Movie.Credits?
     @State var creditType: CreditType = .cast
+    @State var displayRatingOptions: Bool = false
     
     var body: some View {
         ScrollView {
@@ -22,6 +23,10 @@ struct MovieDetailsView: View {
                     .fontWeight(.bold)
 
                 Text(details?.overview ?? "")
+                
+                SubmitRateButtonView {
+                    displayRatingOptions = !displayRatingOptions
+                }
 
                 Picker("", selection: $creditType) {
                     Text("Cast").tag(CreditType.cast)
@@ -38,14 +43,26 @@ struct MovieDetailsView: View {
             }
             .padding()
         }
+        .confirmationDialog("Select your rating", isPresented: $displayRatingOptions, titleVisibility: .visible) {
+            ForEach((1...5), id: \.self) { star in
+                Button {
+                    print(star)
+                } label: {
+                    HStack {
+                        let starString = (1...star).map { _ in "☆" }.joined(separator: "")
+                        Text("\(star): \(starString)")
+                    }
+                }
+            }
+        }
     }
     
     private var displayedCredits: [Credit] {
         switch creditType {
         case .cast:
-            return Array(Set(credits?.casts ?? []))
+            return credits?.casts.removeDuplicates() ?? []
         case .crew:
-            return Array(Set(credits?.crews ?? []))
+            return credits?.crews.removeDuplicates() ?? []
         }
     }
     
@@ -54,6 +71,20 @@ struct MovieDetailsView: View {
         case crew
         
         var id: Self { self }
+    }
+}
+
+extension Array where Element: Equatable {
+    func removeDuplicates() -> [Element] {
+        var result = [Element]()
+
+        for value in self {
+            if result.contains(value) == false {
+                result.append(value)
+            }
+        }
+
+        return result
     }
 }
 
@@ -98,7 +129,8 @@ struct MovieDetailsView_Previews: PreviewProvider {
                             )
                         ]
                     )
-                )
+                ),
+                displayRatingOptions: false
             )
         }
     }

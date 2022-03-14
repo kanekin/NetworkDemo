@@ -65,6 +65,7 @@ struct CachedAsyncImage_Previews: PreviewProvider {
                 }
             }
         }
+        .previewLayout(.sizeThatFits)
     }
 }
 
