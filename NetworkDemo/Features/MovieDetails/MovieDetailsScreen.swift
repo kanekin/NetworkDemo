@@ -13,12 +13,18 @@ struct MovieDetailsScreen: View {
     @ObservedObject var viewModel: MovieDetailsViewModel
     
     var body: some View {
-        MovieDetailsView(movie: viewModel.movieDetails)
+        MovieDetailsView(
+            details: viewModel.movieDetails,
+            credits: $viewModel.credits
+        )
             .onAppear {
-                viewModel.load()
+                Task {
+                    await viewModel.load()
+                    
+                }
             }
-            .navigationTitle(viewModel.movieDetails?.title ?? "")
-            .navigationBarTitleDisplayMode(.inline)
-            
+            .edgesIgnoringSafeArea(.top)
+//            .navigationTitle(viewModel.movieDetails?.title ?? "")
+//            .navigationBarTitleDisplayMode(.inline)
     }
 }

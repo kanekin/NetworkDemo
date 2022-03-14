@@ -52,6 +52,48 @@ extension DataModel.Movie {
             case posterPath = "poster_path"
         }
     }
+    
+    struct Credits: Decodable, Identifiable {
+        let id: Int
+        let casts: [Cast]
+        let crews: [Crew]
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case casts = "cast"
+            case crews = "crew"
+        }
+    }
+}
+
+extension DataModel.Movie.Credits {
+    struct Cast: Decodable, Identifiable, Hashable {
+        let id: Int
+        let name: String?
+        let character: String?
+        let profilePath: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case name
+            case character
+            case profilePath = "profile_path"
+        }
+    }
+    
+    struct Crew: Decodable, Identifiable, Hashable {
+        let id: Int
+        let name: String?
+        let job: String?
+        let profilePath: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case name
+            case job
+            case profilePath = "profile_path"
+        }
+    }
 }
 
 extension DataModel.Movie {

@@ -12,25 +12,8 @@ struct MovieListCell: View {
     
     var body: some View {
         HStack(spacing: 12.0) {
-            CachedAsyncImage(
-                url: movie.smallPosterUrl
-            ) { phase in
-                switch phase {
-                    case .empty:
-                        let _ = print("loading \(movie.title) \(movie.posterPath)")
-                        ProgressView()
-                            .frame(maxWidth: 100, maxHeight: 100)
-                    case .success(let image):
-                        image.resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxHeight: 100)
-                    case .failure(let error):
-                        Image(systemName: "photo")
-                    @unknown default:
-                        EmptyView()
-                }
-            }
-            .cornerRadius(8.0)
+            
+            posterImage().cornerRadius(8.0)
             
             VStack(alignment: .leading, spacing: 8.0) {
                 Text(movie.title)
@@ -47,6 +30,32 @@ struct MovieListCell: View {
             
         }
         .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
+    }
+    
+    @ViewBuilder
+    private func posterImage() -> some View {
+        if let imageUrl = movie.smallPosterUrl {
+            CachedAsyncImage(
+                url: imageUrl
+            ) { phase in
+                switch phase {
+                    case .empty:
+                        let _ = print("loading \(movie.title) \(movie.posterPath)")
+                        ProgressView()
+                            .frame(maxWidth: 100, maxHeight: 100)
+                    case .success(let image):
+                        image.resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxHeight: 100)
+                    case .failure(let error):
+                        Image(systemName: "photo")
+                    @unknown default:
+                        EmptyView()
+                }
+            }
+        } else {
+            Image(systemName: "photo")
+        }
     }
 }
 
