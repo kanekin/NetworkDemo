@@ -10,6 +10,9 @@
 		23ABD18527DF74550073D9EF /* CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD18427DF74550073D9EF /* CreditCell.swift */; };
 		23ABD18727DF95D30073D9EF /* AverageRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD18627DF95D30073D9EF /* AverageRateView.swift */; };
 		23ABD18927DF9AD50073D9EF /* SubmitRateButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD18827DF9AD50073D9EF /* SubmitRateButtonView.swift */; };
+		23ABD18F27E0A4B60073D9EF /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD18E27E0A4B60073D9EF /* LoginScreen.swift */; };
+		23ABD19427E0D5170073D9EF /* AccountOptionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD19327E0D5170073D9EF /* AccountOptionsScreen.swift */; };
+		23ABD19627E0DAED0073D9EF /* SignupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD19527E0DAED0073D9EF /* SignupScreen.swift */; };
 		23AFF6CF27DB4BDC00FB612D /* NetworkDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AFF6CE27DB4BDC00FB612D /* NetworkDemoApp.swift */; };
 		23AFF6D127DB4BDC00FB612D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AFF6D027DB4BDC00FB612D /* ContentView.swift */; };
 		23AFF6D327DB4BDD00FB612D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23AFF6D227DB4BDD00FB612D /* Assets.xcassets */; };
@@ -56,6 +59,9 @@
 		23ABD18427DF74550073D9EF /* CreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCell.swift; sourceTree = "<group>"; };
 		23ABD18627DF95D30073D9EF /* AverageRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageRateView.swift; sourceTree = "<group>"; };
 		23ABD18827DF9AD50073D9EF /* SubmitRateButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitRateButtonView.swift; sourceTree = "<group>"; };
+		23ABD18E27E0A4B60073D9EF /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+		23ABD19327E0D5170073D9EF /* AccountOptionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOptionsScreen.swift; sourceTree = "<group>"; };
+		23ABD19527E0DAED0073D9EF /* SignupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupScreen.swift; sourceTree = "<group>"; };
 		23AFF6CB27DB4BDC00FB612D /* NetworkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23AFF6CE27DB4BDC00FB612D /* NetworkDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDemoApp.swift; sourceTree = "<group>"; };
 		23AFF6D027DB4BDC00FB612D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,6 +115,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23ABD18C27E0A49F0073D9EF /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				23ABD18E27E0A4B60073D9EF /* LoginScreen.swift */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		23ABD18D27E0A4AA0073D9EF /* SignupScreen */ = {
+			isa = PBXGroup;
+			children = (
+				23ABD19527E0DAED0073D9EF /* SignupScreen.swift */,
+			);
+			path = SignupScreen;
+			sourceTree = "<group>";
+		};
+		23ABD19227E0D4720073D9EF /* AccountOptionsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				23ABD19327E0D5170073D9EF /* AccountOptionsScreen.swift */,
+			);
+			path = AccountOptionsScreen;
+			sourceTree = "<group>";
+		};
 		23AFF6C227DB4BDC00FB612D = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +231,9 @@
 		23AFF70527DB5A0F00FB612D /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				23ABD19227E0D4720073D9EF /* AccountOptionsScreen */,
+				23ABD18D27E0A4AA0073D9EF /* SignupScreen */,
+				23ABD18C27E0A49F0073D9EF /* LoginScreen */,
 				23E146FC27DCE1CD008FC97B /* MovieDetails */,
 				23AFF70627DB5A1F00FB612D /* MovieList */,
 			);
@@ -409,6 +442,7 @@
 				23AFF71227DB622300FB612D /* AppError.swift in Sources */,
 				23AFF6CF27DB4BDC00FB612D /* NetworkDemoApp.swift in Sources */,
 				23AFF71427DB6A8F00FB612D /* Resources.swift in Sources */,
+				23ABD18F27E0A4B60073D9EF /* LoginScreen.swift in Sources */,
 				23E1470127DCEE38008FC97B /* MovieDetailsViewModel.swift in Sources */,
 				23AFF70827DB5BB100FB612D /* Movie.swift in Sources */,
 				23AFF6FD27DB587700FB612D /* MovieListScreen.swift in Sources */,
@@ -420,7 +454,9 @@
 				23E1470727DF57C9008FC97B /* MovieDetailsTitleView.swift in Sources */,
 				23E146F827DB8B4D008FC97B /* MovieListCell.swift in Sources */,
 				23ABD18927DF9AD50073D9EF /* SubmitRateButtonView.swift in Sources */,
+				23ABD19627E0DAED0073D9EF /* SignupScreen.swift in Sources */,
 				23AFF70227DB591C00FB612D /* Resource.swift in Sources */,
+				23ABD19427E0D5170073D9EF /* AccountOptionsScreen.swift in Sources */,
 				23AFF6FF27DB590900FB612D /* MovieListViewModel.swift in Sources */,
 				23AFF70A27DB5C9300FB612D /* NetworkService.swift in Sources */,
 			);

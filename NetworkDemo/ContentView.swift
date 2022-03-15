@@ -7,15 +7,32 @@
 
 import SwiftUI
 
+enum HomeTab {
+    case account
+    case list
+}
+
 struct ContentView: View {
     var body: some View {
-        MovieListScreen(
-            viewModel: MovieListViewModel(
-                networkService: NetworkService(
-                    session: URLSession.shared,
-                    decoder: JSONDecoder())
+        TabView {
+            
+            AccountOptionsScreen()
+                .tabItem {
+                    Label("Account", systemImage: "person")
+                }
+            
+            MovieListScreen(
+                viewModel: MovieListViewModel(
+                    networkService: NetworkService(
+                        session: URLSession.shared,
+                        decoder: JSONDecoder())
+                )
             )
-        )
+                .tabItem {
+                    Label("Movies", systemImage: "film")
+                }
+                .tag(HomeTab.list)
+        }
     }
 }
 

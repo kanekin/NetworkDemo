@@ -22,7 +22,7 @@ extension Color {
     static let systemGray6 = Color(UIColor.systemGray6)
     
     
-    static let background = Color(UIColor.systemBackground)
+    static let systemBackground = Color(UIColor.systemBackground)
     static let secondaryBackground = Color(UIColor.secondarySystemBackground)
     static let tertiaryBackground = Color(UIColor.tertiarySystemBackground)
     
@@ -33,6 +33,27 @@ extension Color {
             black.opacity(0.2),
             black.opacity(0.5),
             black.opacity(1.0),
+        ]
+    }
+    
+    static var gradientFromCenter: Array<Color> {
+        return [
+            black.opacity(0.0),
+            black.opacity(0.2),
+            black.opacity(0.5),
+            black.opacity(0.7),
+            black.opacity(0.5),
+            black.opacity(0.2),
+            black.opacity(0.0),
+        ]
+    }
+    
+    static var backgroundGradient: Array<Color> {
+        return [
+            Color(uiColor: .systemBackground).opacity(0.0),
+            Color(uiColor: .systemBackground).opacity(0.2),
+            Color(uiColor: .systemBackground).opacity(0.5),
+            Color(uiColor: .systemBackground).opacity(1.0),
         ]
     }
 }
