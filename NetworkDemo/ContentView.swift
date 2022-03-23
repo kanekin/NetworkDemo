@@ -15,7 +15,6 @@ enum HomeTab {
 struct ContentView: View {
     var body: some View {
         TabView {
-            
             AccountOptionsScreen()
                 .tabItem {
                     Label("Account", systemImage: "person")

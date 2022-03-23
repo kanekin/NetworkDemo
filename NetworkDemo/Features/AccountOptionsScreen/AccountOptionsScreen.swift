@@ -8,63 +8,37 @@
 import SwiftUI
 
 struct AccountOptionsScreen: View {
-    @State var isSingInVisible: Bool = false
+    @State var isSignInVisible: Bool = false
     @State var isCreateAccountVisible: Bool = false
+    @AppStorage("sessionId") var sessionId: String?
     
     var body: some View {
         VStack {
-            Image("OneFlewOverTheCuckoosNest")
-                .resizable()
-                .clipped()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 350, alignment: .bottom)
-                .clipped()
-                .overlay {
-                    LinearGradient(gradient: Gradient(colors: Color.backgroundGradient), startPoint: .top, endPoint: .bottom)
-                }
-                .overlay {
-                    Text("KinemaRecord")
-                        .font(.system(size: 38.0))
-                        .fontWeight(.heavy)
-                        .frame(maxHeight: .infinity, alignment: .bottom)
-                }
+            HeaderView()
             
-            Divider()
-
-            Button(action: {
-                isSingInVisible = !isSingInVisible
-            }) {
-                Text("Sign in")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.init(top: 8.0, leading: 16.0, bottom: 8.0, trailing: 16.0))
-                    .foregroundColor(.label)
-            }
-            Divider()
-            
-            Button(action: {
-                isCreateAccountVisible = !isCreateAccountVisible
-            }) {
-                Text("Create account")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.init(top: 8.0, leading: 16.0, bottom: 8.0, trailing: 16.0))
-                    .foregroundColor(.label)
-            }
-
-            Divider()
+            AccountOptionsView(
+                isLoggedIn: Binding(get: {
+                    sessionId != nil
+                }, set: { transaction in
+                    if transaction == false {
+                        sessionId = nil
+                    }
+                }),
+                onLoginPressed: {
+                    isSignInVisible = true
+                },
+                onLogoutPressed: {
+                    sessionId = nil
+                })
             
             Spacer()
-
         }
         .sheet(
-            isPresented: $isSingInVisible,
+            isPresented: $isSignInVisible,
             content: {
-                LoginScreen()
-            }
-        )
-        .sheet(
-            isPresented: $isCreateAccountVisible,
-            content: {
-                SignupScreen()
+                LoginScreen(
+                    networkService: .init(session: URLSession.shared, decoder: JSONDecoder()),
+                    isPresented: $isSignInVisible)
             }
         )
         .ignoresSafeArea(edges: [.top])

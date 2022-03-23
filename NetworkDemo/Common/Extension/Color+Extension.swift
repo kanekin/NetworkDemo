@@ -23,8 +23,8 @@ extension Color {
     
     
     static let systemBackground = Color(UIColor.systemBackground)
-    static let secondaryBackground = Color(UIColor.secondarySystemBackground)
-    static let tertiaryBackground = Color(UIColor.tertiarySystemBackground)
+    static let secondarySystemBackground = Color(UIColor.secondarySystemBackground)
+    static let tertiarySystemBackground = Color(UIColor.tertiarySystemBackground)
     
     
     static var gradient: Array<Color> {

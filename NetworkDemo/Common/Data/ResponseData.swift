@@ -8,6 +8,31 @@
 import Foundation
 
 struct DataModel {
+    struct Authentication {
+        struct Token: Decodable {
+            let success: Bool?
+            let expiresAt: String?
+            let requestToken: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case success
+                case expiresAt = "expires_at"
+                case requestToken = "request_token"
+            }
+        }
+        
+        struct Session: Decodable {
+            let success: Bool?
+            let sessionId: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case success
+                case sessionId = "session_id"
+            }
+        }
+    }
+    
+    
     struct Movies: Decodable {
         let page: Int
         let results: [Movie]

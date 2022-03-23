@@ -24,7 +24,5 @@ struct MovieDetailsScreen: View {
                 }
             }
             .edgesIgnoringSafeArea(.top)
-//            .navigationTitle(viewModel.movieDetails?.title ?? "")
-//            .navigationBarTitleDisplayMode(.inline)
     }
 }

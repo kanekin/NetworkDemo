@@ -19,6 +19,7 @@ struct MovieListScreen: View {
                 }
             }
             .listStyle(.plain)
+            .navigationTitle("Popular Movies")
             .onAppear {
                 viewModel.load()
             }

@@ -40,6 +40,9 @@ extension Resource where T: Decodable {
             
             if case let .post(body) = httpMethod {
                 urlRequest.httpBody = body.toJSONData()
+                urlRequest.allHTTPHeaderFields = [
+                    "Content-Type": "application/json"
+                ]
             }
             return urlRequest
         }

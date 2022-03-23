@@ -6,66 +6,73 @@
 //
 
 import SwiftUI
+import os.log
 
 struct LoginScreen: View {
-    @State var email: String = ""
-    @State var password: String = ""
     
+    let networkService: NetworkService
+    @Binding var isPresented: Bool
+    @AppStorage("sessionId") var sessionId: String?
+
     var body: some View {
         VStack {
-            Image("OneFlewOverTheCuckoosNest")
-                .resizable()
-                .clipped()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 350, alignment: .bottom)
-                .clipped()
-                .overlay {
-                    LinearGradient(gradient: Gradient(colors: Color.backgroundGradient), startPoint: .top, endPoint: .bottom)
-                }
-                .overlay {
-                    Text("Sign in to Kinema Record")
-                        .foregroundColor(.label)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .frame(maxHeight: .infinity, alignment: .bottom)
-                        .padding()
-                }
-            
-            VStack(alignment: .leading, spacing: 0.0) {
-                TextField("Email", text: $email)
-                    .frame(minHeight: 42.0)
-                    .background(Color.systemBackground)
-                    .textFieldStyle(.plain)
-                Divider()
-                TextField("Password", text: $password)
-                    .frame(minHeight: 42.0)
-                    .background(Color.systemBackground)
-                    .textFieldStyle(.plain)
+            if sessionId == nil {
+                LoginView(submitLogin: submitLogin(username:password:))
+            } else {
+                LoginSuccessView(onAnimationCompleted: {
+                    isPresented = false
+                })
             }
-            .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
-            .background(Color.systemBackground)
-            
-            Button(action: {}) {
-                Text("Login")
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity)
-            }
-            .tint(.green)
-            .buttonStyle(.borderedProminent)
-            .buttonBorderShape(.roundedRectangle(radius: 5))
-            .controlSize(.large)
-            .padding(.init(top: 8.0, leading: 16.0, bottom: 16.0, trailing: 16.0))
-            
-            Spacer()
         }
         .ignoresSafeArea(edges: [.top])
         .background(Color.systemBackground)
+    }
+    
+    private func submitLogin(username: String, password: String) {
+        Task {
+            do {
+                // Get a request token
+                let tokenResponse = try await networkService.load(resource: Resources.Authentication.getRequestToken())
+                guard let requestToken = tokenResponse.requestToken else { return }
+                
+                // Validate the request token with credentials
+                let validatedTokenResponse = try await networkService.load(
+                    resource: Resources.Authentication.validateRequestTokenWithLogin(
+                        credentials: RequestData.Credentials(
+                            username: username,
+                            password: password,
+                            requestToken: requestToken
+                        )
+                    )
+                )
+                guard let requestToken = validatedTokenResponse.requestToken else {
+                    return
+                }
+                
+                // Create a valid session
+                let sessionResponse = try await networkService.load(resource: Resources.Authentication.createSession(requestToken: .init(requestToken: requestToken)))
+                guard let success = sessionResponse.success, success, let sessionId = sessionResponse.sessionId else {
+                    Logger.network.debug("Failed to create a valid session ID")
+                    return
+                }
+                
+                // Store Session Id
+                self.sessionId = sessionId
+                // Dismiss the screen
+            } catch {
+                Logger.network.debug("Error during submitting login: \(error.localizedDescription)")
+            }    
+        }
+                                                       
     }
 }
 
 struct LoginScreen__Previews: PreviewProvider {
     static var previews: some View {
-        LoginScreen()
+        LoginScreen(
+            networkService: NetworkService(session: URLSession.shared, decoder: JSONDecoder()),
+            isPresented: .constant(true)
+        )
 //            .preferredColorScheme(.dark)
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import os.log
 
 class NetworkService {
     private let session: URLSession
@@ -18,6 +19,7 @@ class NetworkService {
     
     func load<T>(resource: Resource<T>) async throws -> T {
         do {
+            Logger.network.debug("\(resource.request.curlString)")
             let (data, response) = try await session.data(for: resource.request)
             
             guard let response = response as? HTTPURLResponse else {
@@ -42,7 +44,7 @@ class NetworkService {
             } else if let _ = error as? DecodingError {
                 throw AppError.network(type: .parsing(error: error))
             } else {
-                throw AppError.network(type: .unknown)
+                throw AppError.network(type: .unknown(error: error))
             }
         }
     }
