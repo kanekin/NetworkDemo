@@ -41,7 +41,7 @@ struct LoginSuccessView: View {
             withAnimation(.easeInOut(duration: 1.0)) {
                 textOpacity = 1.0
             }
-            withAnimation(.interactiveSpring(response: 0.8, dampingFraction: 1.0, blendDuration: 0.5).delay(1.0)) {
+            withAnimation(.easeInOut(duration:0.5).delay(1.0)) {
                 checkMarkOffset = 0
             }
         }

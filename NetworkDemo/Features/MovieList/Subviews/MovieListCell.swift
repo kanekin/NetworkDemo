@@ -13,7 +13,9 @@ struct MovieListCell: View {
     var body: some View {
         HStack(spacing: 12.0) {
             
-            posterImage().cornerRadius(8.0)
+            posterImage()
+                .frame(maxWidth: 75.0, maxHeight: 120.0)
+                .cornerRadius(8.0)
             
             VStack(alignment: .leading, spacing: 8.0) {
                 Text(movie.title)
@@ -42,11 +44,9 @@ struct MovieListCell: View {
                     case .empty:
                         let _ = print("loading \(movie.title) \(movie.posterPath)")
                         ProgressView()
-                            .frame(maxWidth: 100, maxHeight: 100)
                     case .success(let image):
                         image.resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(maxHeight: 100)
                     case .failure(let error):
                         Image(systemName: "photo")
                     @unknown default:
