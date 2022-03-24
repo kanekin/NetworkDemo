@@ -13,19 +13,18 @@ enum HomeTab {
 }
 
 struct ContentView: View {
+    
+    let viewModelFactory = ViewModelFactory()
+    
     var body: some View {
         TabView {
-            AccountOptionsScreen()
+            AccountOptionsScreen(viewModelFactory: viewModelFactory)
                 .tabItem {
                     Label("Account", systemImage: "person")
                 }
             
-            MovieListScreen(
-                viewModel: MovieListViewModel(
-                    networkService: NetworkService(
-                        session: URLSession.shared,
-                        decoder: JSONDecoder())
-                )
+            MovieListScreen( 
+                viewModel: viewModelFactory.makeMovieListViewModel()
             )
                 .tabItem {
                     Label("Movies", systemImage: "film")

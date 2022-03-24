@@ -8,23 +8,40 @@
 import SwiftUI
 
 struct MovieListScreen: View {
+   
     @ObservedObject var viewModel: MovieListViewModel
     @State var selection: Int?
     
     var body: some View {
         NavigationView {
-            List(viewModel.movies) { movie in
-                NavigationLink(
-                    tag: movie.id,
-                    selection: $selection,
-                    destination: {
-                        MovieDetailsScreen(viewModel: .init(id: movie.id, networkService: viewModel.networkService))
-                    },
-                    label: {
+            VStack {
+                List(viewModel.movies) { movie in
+                    Button(action: {
+                        viewModel.selectMovie(id: movie.id)
+                    }, label: {
                         MovieListCell(movie: movie)
-                            .padding(.init(top: 8.0, leading: 0.0, bottom: 8.0, trailing: 0.0))
                     })
+                }
+                
+                NavigationLink(
+                    isActive: Binding(
+                        get: {
+                            viewModel.selectedMovieDetailsViewModel != nil
+                        },
+                        set: { value in
+                            if value == false {
+                                viewModel.selectedMovieDetailsViewModel = nil
+                            }
+                        }),
+                    destination: {
+                        viewModel.selectedMovieDetailsViewModel.map { viewModel in
+                            MovieDetailsScreen(viewModel: viewModel)
+                        }
+                    },
+                    label: { EmptyView() }
+                )
             }
+
             .listStyle(.plain)
             .navigationTitle("Popular Films")
             .onAppear {

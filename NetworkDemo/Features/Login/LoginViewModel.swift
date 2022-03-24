@@ -1,34 +1,24 @@
 //
-//  LoginScreen].swift
+//  LoginViewModel.swift
 //  NetworkDemo
 //
-//  Created by Tatsuya Kaneko on 15/03/2022.
+//  Created by Tatsuya Kaneko on 24/03/2022.
 //
 
-import SwiftUI
+import Foundation
 import os.log
+import SwiftUI
 
-struct LoginScreen: View {
-    
-    let networkService: NetworkService
-    @Binding var isPresented: Bool
+class LoginViewModel: ObservableObject {
+    let networkService: NetworkServicing
     @AppStorage("sessionId") var sessionId: String?
-
-    var body: some View {
-        VStack {
-            if sessionId == nil {
-                LoginView(submitLogin: submitLogin(username:password:))
-            } else {
-                LoginSuccessView(onAnimationCompleted: {
-                    isPresented = false
-                })
-            }
-        }
-        .ignoresSafeArea(edges: [.top])
-        .background(Color.systemBackground)
+    
+    init(networkService: NetworkServicing) {
+        print("initalizing LoginViewMOdel")
+        self.networkService = networkService
     }
     
-    private func submitLogin(username: String, password: String) {
+    func submitLogin(username: String, password: String) {
         Task {
             do {
                 // Get a request token
@@ -61,18 +51,7 @@ struct LoginScreen: View {
                 // Dismiss the screen
             } catch {
                 Logger.network.debug("Error during submitting login: \(error.localizedDescription)")
-            }    
+            }
         }
-                                                       
-    }
-}
-
-struct LoginScreen__Previews: PreviewProvider {
-    static var previews: some View {
-        LoginScreen(
-            networkService: NetworkService(session: URLSession.shared, decoder: JSONDecoder()),
-            isPresented: .constant(true)
-        )
-//            .preferredColorScheme(.dark)
     }
 }

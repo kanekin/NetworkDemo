@@ -11,10 +11,13 @@ import os.log
 
 @MainActor
 class MovieListViewModel: ObservableObject {
-    let networkService: NetworkService
+    let viewModelFactory: ViewModelFactory
+    let networkService: NetworkServicing
     @Published var movies: [DataModel.Movie] = []
+    @Published var selectedMovieDetailsViewModel: MovieDetailsViewModel? = nil
    
-    init(networkService: NetworkService) {
+    init(viewModelFactory: ViewModelFactory, networkService: NetworkServicing) {
+        self.viewModelFactory = viewModelFactory
         self.networkService = networkService
     }
     
@@ -22,7 +25,6 @@ class MovieListViewModel: ObservableObject {
         Task {
             do {
                 let movies = try await networkService.load(resource: Resources.Movie.getPopular())
-                // TODO: add page support
                 self.movies = movies.results
             } catch {
                 guard let appError = error as? AppError else {
@@ -32,5 +34,9 @@ class MovieListViewModel: ObservableObject {
                 Logger.network.error("\(appError.localizedDescription)")
             }
         }
+    }
+    
+    func selectMovie(id: Int) {
+        selectedMovieDetailsViewModel = viewModelFactory.makeMovieDetailsViewModel(movieId: id)
     }
 }

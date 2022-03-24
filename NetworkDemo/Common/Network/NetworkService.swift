@@ -8,11 +8,15 @@
 import Foundation
 import os.log
 
-class NetworkService {
+protocol NetworkServicing {
+    func load<T>(resource: Resource<T>) async throws -> T
+}
+
+class NetworkService: NetworkServicing {
     private let session: URLSession
     private let decoder: JSONDecoder
     
-    init(session: URLSession, decoder: JSONDecoder) {
+    init(session: URLSession = .shared, decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
         self.decoder = decoder
     }
@@ -47,5 +51,17 @@ class NetworkService {
                 throw AppError.network(type: .unknown(error: error))
             }
         }
+    }
+}
+
+class MockNetworkService<T>: NetworkServicing {
+    let returnObject: T
+    
+    init(returnObject: T) {
+        self.returnObject = returnObject
+    }
+    
+    func load<T>(resource: Resource<T>) async throws -> T where T: Decodable{
+        return returnObject as! T
     }
 }

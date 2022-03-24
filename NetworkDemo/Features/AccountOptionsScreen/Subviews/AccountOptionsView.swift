@@ -14,6 +14,7 @@ struct AccountOptionsView: View {
     
     var body: some View {
         VStack {
+            HeaderView()
             if isLoggedIn {
                 Divider()
                 Button(action: onLogoutPressed) {
@@ -33,7 +34,9 @@ struct AccountOptionsView: View {
                 }
                 Divider()
             }
+            Spacer()
         }
+        .ignoresSafeArea(edges: [.top])
     }
 }
 
@@ -45,13 +48,12 @@ struct AccountOptionsView_Previews: PreviewProvider {
             onLoginPressed: {},
             onLogoutPressed: {}
         )
-            .previewLayout(.sizeThatFits)
         
         AccountOptionsView(
             isLoggedIn: .constant(true),
             onLoginPressed: {},
             onLogoutPressed: {}
         )
-            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

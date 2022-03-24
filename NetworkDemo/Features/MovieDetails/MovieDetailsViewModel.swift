@@ -17,6 +17,7 @@ class MovieDetailsViewModel: ObservableObject {
     @Published var credits: DataModel.Movie.Credits?
     
     init(id: Int, networkService: NetworkService) {
+        print("initializing MovieDetailsViewModel")
         self.id = id
         self.networkService = networkService
     }
@@ -50,6 +51,10 @@ class MovieDetailsViewModel: ObservableObject {
             }
             Logger.network.error("\(appError.localizedDescription)")
         }
+    }
+    
+    deinit {
+        print("deinitializing \(String(describing: self))")
     }
 }
 
