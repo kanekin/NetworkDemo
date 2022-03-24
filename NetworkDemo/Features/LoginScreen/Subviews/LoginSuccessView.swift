@@ -16,9 +16,9 @@ struct LoginSuccessView: View {
     var body: some View {
         VStack(spacing: 24.0) {
             Circle()
-                .trim(from: 0, to: circlePercentage)
-                .stroke(lineWidth: 12.0)
+                .trim(from: 0.0, to: circlePercentage)
                 .rotation(.init(degrees: -90))
+                .stroke(lineWidth: 12.0)
                 .foregroundColor(.green)
                 .frame(width: 200, height: 200)
                 .overlay {

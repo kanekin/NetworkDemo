@@ -10,6 +10,7 @@ import Combine
 
 struct MovieDetailsScreen: View {
     
+    @Environment(\.presentationMode) var presentation
     @ObservedObject var viewModel: MovieDetailsViewModel
     
     var body: some View {
@@ -18,11 +19,16 @@ struct MovieDetailsScreen: View {
             credits: $viewModel.credits
         )
             .onAppear {
+                print("onAppear")
                 Task {
                     await viewModel.load()
                     
                 }
             }
+            .onDisappear(perform: {
+                print("onDisappear")
+            })
             .edgesIgnoringSafeArea(.top)
+            .navigationBarDisplayChevronBackButton()
     }
 }

@@ -8,7 +8,11 @@
 import SwiftUI
 
 extension View {
-
+    
+    func navigationBarDisplayChevronBackButton() -> some View {
+        return modifier(NavigationChevronBackButtonModifier())
+    }
+    
     func onAnimationCompleted<Value: VectorArithmetic>(for value: Value, completion: @escaping () -> Void) -> ModifiedContent<Self, AnimationCompletionObserverModifier<Value>> {
         return modifier(AnimationCompletionObserverModifier(observedValue: value, completion: completion))
     }
