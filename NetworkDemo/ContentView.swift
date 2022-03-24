@@ -23,9 +23,7 @@ struct ContentView: View {
                     Label("Account", systemImage: "person")
                 }
             
-            MovieListScreen( 
-                viewModel: viewModelFactory.makeMovieListViewModel()
-            )
+            MoviesCoordinatorView(coordinator: MoviesCoordinator(viewModelFactory: viewModelFactory))
                 .tabItem {
                     Label("Movies", systemImage: "film")
                 }

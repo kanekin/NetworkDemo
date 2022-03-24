@@ -11,13 +11,13 @@ import os.log
 
 @MainActor
 class MovieListViewModel: ObservableObject {
-    let viewModelFactory: ViewModelFactory
+    private weak var coordinator: MoviesCoordinating?
     let networkService: NetworkServicing
     @Published var movies: [DataModel.Movie] = []
     @Published var selectedMovieDetailsViewModel: MovieDetailsViewModel? = nil
    
-    init(viewModelFactory: ViewModelFactory, networkService: NetworkServicing) {
-        self.viewModelFactory = viewModelFactory
+    init(coordinator: MoviesCoordinating, networkService: NetworkServicing) {
+        self.coordinator = coordinator
         self.networkService = networkService
     }
     
@@ -37,6 +37,6 @@ class MovieListViewModel: ObservableObject {
     }
     
     func selectMovie(id: Int) {
-        selectedMovieDetailsViewModel = viewModelFactory.makeMovieDetailsViewModel(movieId: id)
+        coordinator?.openMovieDetailsScreen(movieId: id)
     }
 }
