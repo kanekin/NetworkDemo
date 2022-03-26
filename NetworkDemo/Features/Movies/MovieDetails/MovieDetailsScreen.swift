@@ -13,10 +13,16 @@ struct MovieDetailsScreen: View {
     @Environment(\.presentationMode) var presentation
     @ObservedObject var viewModel: MovieDetailsViewModel
     
+    
     var body: some View {
         MovieDetailsView(
             details: viewModel.movieDetails,
-            credits: $viewModel.credits
+            credits: $viewModel.credits,
+            onSubmitRating: { rating in
+                Task {
+                    await viewModel.submitRating(rating, for: viewModel.id)
+                }
+            }
         )
             .onAppear {
                 print("onAppear")

@@ -53,15 +53,3 @@ class NetworkService: NetworkServicing {
         }
     }
 }
-
-class MockNetworkService<T>: NetworkServicing {
-    let returnObject: T
-    
-    init(returnObject: T) {
-        self.returnObject = returnObject
-    }
-    
-    func load<T>(resource: Resource<T>) async throws -> T where T: Decodable{
-        return returnObject as! T
-    }
-}

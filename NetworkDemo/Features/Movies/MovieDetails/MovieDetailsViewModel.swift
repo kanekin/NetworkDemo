@@ -17,20 +17,16 @@ class MovieDetailsViewModel: ObservableObject {
     @Published var credits: DataModel.Movie.Credits?
     
     init(id: Int, networkService: NetworkService) {
-        print("initializing MovieDetailsViewModel")
         self.id = id
         self.networkService = networkService
     }
     
     func load() async {
-        await getMovieDetails(id: id)
-        await getMovieCredits(id: id)
-    }
-    
-    private func getMovieDetails(id: Int) async {
         do {
-            let movieDetails = try await networkService.load(resource: Resources.Movie.getDetails(id: id))
-            self.movieDetails = movieDetails
+            async let movieDetails = try await networkService.load(resource: Resources.Movie.getDetails(id: id))
+            async let credits = try await networkService.load(resource: Resources.Movie.getCredits(id: id))
+            self.movieDetails = try await movieDetails
+            self.credits = try await credits
         } catch {
             guard let appError = error as? AppError else {
                 Logger.network.error("unknown error on network service")
@@ -40,10 +36,10 @@ class MovieDetailsViewModel: ObservableObject {
         }
     }
     
-    private func getMovieCredits(id: Int) async {
+    func submitRating(_ rating: Int, for movieId: Int) async {
         do {
-            let credits = try await networkService.load(resource: Resources.Movie.getCredits(id: id))
-            self.credits = credits
+            let status = try await networkService.load(resource: Resources.Movie.postRating(.init(value: rating), for: movieId))
+            Logger.network.log("submit rating response status: \(status.statusCode): \(status.statusMessage)")
         } catch {
             guard let appError = error as? AppError else {
                 Logger.network.error("unknown error on network service")

@@ -53,15 +53,29 @@ struct Resources {
                 httpMethod: .get
             )
         }
+        
+        static func postRating(_ rating: RequestData.Rating, for movieId: Int) -> Resource<DataModel.Status>{
+            return .init(
+                url: .init(
+                    fromTMDBPath: "/3/movie/\(movieId)/rating",
+                    requireAuthentication: true
+                )!,
+                httpMethod: .post(rating)
+            )
+        }
     }
 }
 
 extension URL {
-    init?(fromTMDBPath path: String) {
+    init?(fromTMDBPath path: String, requireAuthentication: Bool = false) {
         guard var urlComponents = URLComponents(string: ApiConstants.baseUrl) else { return nil }
         urlComponents.path = path
-        urlComponents.queryItems = [ URLQueryItem(name: "api_key", value: String(ApiConstants.apiKey)) ]
-        
+        urlComponents.queryItems = [
+            URLQueryItem(name: "api_key", value: String(ApiConstants.apiKey)),
+        ]
+        if requireAuthentication, let sessionId = SessionStorage.shared.sessionId {
+            urlComponents.queryItems?.append(URLQueryItem(name: "session_id", value: sessionId))
+        }
         guard let url = urlComponents.url else { return nil }
         self = url
     }

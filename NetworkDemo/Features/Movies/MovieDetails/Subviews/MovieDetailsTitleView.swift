@@ -12,6 +12,7 @@ struct MovieDetailsTitleView: View {
     
     var body: some View {
         titleImage()
+            .frame(maxWidth: .infinity, minHeight: 500)
             .overlay {
                 VStack(alignment: .leading) {
                     Spacer()
@@ -51,7 +52,6 @@ struct MovieDetailsTitleView: View {
                         EmptyView()
                 }
             }
-            .frame(maxWidth: .infinity, minHeight: 500)
         } else {
             Image(systemName: "photo")
         }

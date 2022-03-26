@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct MovieListCell: View {
+    private let imageHeight = 120.0
+    private let verticalPadding = 8.0
+    
     var movie: DataModel.Movie
     
     var body: some View {
         HStack(spacing: 12.0) {
-            
             posterImage()
-                .frame(maxWidth: 75.0, maxHeight: 120.0)
                 .cornerRadius(8.0)
+                .frame(maxWidth: 76.0, maxHeight: imageHeight)
             
             VStack(alignment: .leading, spacing: 8.0) {
                 Text(movie.title)
@@ -31,7 +33,7 @@ struct MovieListCell: View {
             }
             
         }
-        .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
+        .frame(maxWidth: .infinity, minHeight: imageHeight, alignment: .leading)
     }
     
     @ViewBuilder

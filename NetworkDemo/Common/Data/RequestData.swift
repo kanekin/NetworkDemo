@@ -27,5 +27,9 @@ struct RequestData {
             case requestToken = "request_token"
         }
     }
+    
+    struct Rating: Encodable {
+        let value: Int
+    }
 }
 

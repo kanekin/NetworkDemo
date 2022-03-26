@@ -21,18 +21,16 @@ class MovieListViewModel: ObservableObject {
         self.networkService = networkService
     }
     
-    func load() {
-        Task {
-            do {
-                let movies = try await networkService.load(resource: Resources.Movie.getPopular())
-                self.movies = movies.results
-            } catch {
-                guard let appError = error as? AppError else {
-                    Logger.network.error("unknown error on network service")
-                    return
-                }
-                Logger.network.error("\(appError.localizedDescription)")
+    func load() async {
+        do {
+            let movies = try await networkService.load(resource: Resources.Movie.getPopular())
+            self.movies = movies.results
+        } catch {
+            guard let appError = error as? AppError else {
+                Logger.network.error("unknown error on network service")
+                return
             }
+            Logger.network.error("\(appError.localizedDescription)")
         }
     }
     

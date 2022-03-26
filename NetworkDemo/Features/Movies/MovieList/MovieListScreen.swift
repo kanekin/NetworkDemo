@@ -22,8 +22,8 @@ struct MovieListScreen: View {
         }
         .listStyle(.plain)
         .navigationTitle("Popular Films")
-        .onAppear {
-            viewModel.load()
+        .task {
+            await viewModel.load()
         }
     }
 }

@@ -12,6 +12,7 @@ struct MovieDetailsView: View {
     @Binding var credits: DataModel.Movie.Credits?
     @State var creditType: CreditType = .cast
     @State var displayRatingOptions: Bool = false
+    let onSubmitRating: (Int) -> ()
     
     var body: some View {
         ScrollView {
@@ -44,13 +45,15 @@ struct MovieDetailsView: View {
             .padding()
         }
         .confirmationDialog("Select your rating", isPresented: $displayRatingOptions, titleVisibility: .visible) {
-            ForEach((1...5), id: \.self) { star in
+            ForEach((1...10), id: \.self) { rating in
                 Button {
-                    print(star)
+                    print(rating)
+                    onSubmitRating(rating)
+                    // Implement 
                 } label: {
                     HStack {
-                        let starString = (1...star).map { _ in "☆" }.joined(separator: "")
-                        Text("\(star): \(starString)")
+                        let starString = (1...rating).map { _ in "☆" }.joined(separator: "")
+                        Text("\(rating): \(starString)")
                     }
                 }
             }
@@ -130,7 +133,8 @@ struct MovieDetailsView_Previews: PreviewProvider {
                         ]
                     )
                 ),
-                displayRatingOptions: false
+                displayRatingOptions: false,
+                onSubmitRating: { _ in }
             )
         }
     }

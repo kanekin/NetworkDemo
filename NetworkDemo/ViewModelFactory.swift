@@ -12,6 +12,10 @@ class ViewModelFactory {
         return NetworkService()
     }()
     
+    lazy var sessionStorage: SessionStorage = {
+        return SessionStorage()
+    }()
+    
     @MainActor
     func makeMovieListViewModel(coordinator: MoviesCoordinating) -> MovieListViewModel {
         return MovieListViewModel(coordinator: coordinator, networkService: networkService)
@@ -24,6 +28,9 @@ class ViewModelFactory {
     
     @MainActor
     func makeLoginViewModel() -> LoginViewModel {
-        return LoginViewModel(networkService: networkService)
+        return LoginViewModel(
+            loginNetworkHandler: LoginNetworkHandler(networkService: networkService),
+            sessionStorage: SessionStorage()
+        )
     }
 }

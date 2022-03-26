@@ -16,7 +16,11 @@ struct LoginScreen: View {
     var body: some View {
         VStack {
             if sessionId == nil {
-                LoginView(submitLogin: viewModel.submitLogin)
+                LoginView(submitLogin: { username, password in
+                    Task {
+                        await viewModel.submitLogin(username: username, password: password)
+                    }
+                })
             } else {
                 LoginSuccessView(onAnimationCompleted: {
                     isPresented = false
