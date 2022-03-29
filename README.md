@@ -32,5 +32,6 @@ The main purpose of the app is to demostrate how an app can be structured. It is
   - browse casts
   - browse crew
 
-## How it looks:
-[![Watch the video](https://img.youtube.com/vi/iM-mfaJs6Bg/hqdefault.jpg)](https://youtu.be/iM-mfaJs6Bg)
+## Demo video:
+Click to play:
+[![Watch the video](./ReadmeResources/video-thumbnail.png | width=200)](https://youtu.be/iM-mfaJs6Bg)
