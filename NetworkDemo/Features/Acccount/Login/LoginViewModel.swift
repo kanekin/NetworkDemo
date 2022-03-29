@@ -19,7 +19,6 @@ class LoginViewModel: ObservableObject {
     }
     
     init(loginNetworkHandler: LoginNetworkHandling, sessionStorage: SessionStoring) {
-        print("initalizing LoginViewMOdel")
         self.loginNetworkHandler = loginNetworkHandler
         self.sessionStorage = sessionStorage
         self.sessionId = sessionStorage.sessionId

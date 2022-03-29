@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+extension View {
+    func navigationBarDisplayChevronBackButton() -> some View {
+        return modifier(NavigationChevronBackButtonModifier())
+    }
+}
+
 struct NavigationChevronBackButtonModifier: ViewModifier {
     
     @Environment(\.presentationMode) var presentation

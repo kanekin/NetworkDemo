@@ -17,23 +17,14 @@ struct MovieDetailsScreen: View {
     var body: some View {
         MovieDetailsView(
             details: viewModel.movieDetails,
-            credits: $viewModel.credits,
-            onSubmitRating: { rating in
-                Task {
-                    await viewModel.submitRating(rating, for: viewModel.id)
-                }
-            }
+            credits: $viewModel.credits
         )
             .onAppear {
-                print("onAppear")
                 Task {
                     await viewModel.load()
                     
                 }
             }
-            .onDisappear(perform: {
-                print("onDisappear")
-            })
             .edgesIgnoringSafeArea(.top)
             .navigationBarDisplayChevronBackButton()
     }

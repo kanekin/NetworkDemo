@@ -34,24 +34,7 @@ class MovieDetailsViewModel: ObservableObject {
             }
             Logger.network.error("\(appError.localizedDescription)")
         }
-    }
-    
-    func submitRating(_ rating: Int, for movieId: Int) async {
-        do {
-            let status = try await networkService.load(resource: Resources.Movie.postRating(.init(value: rating), for: movieId))
-            Logger.network.log("submit rating response status: \(status.statusCode): \(status.statusMessage)")
-        } catch {
-            guard let appError = error as? AppError else {
-                Logger.network.error("unknown error on network service")
-                return
-            }
-            Logger.network.error("\(appError.localizedDescription)")
-        }
-    }
-    
-    deinit {
-        print("deinitializing \(String(describing: self))")
-    }
+    } 
 }
 
 

@@ -44,7 +44,6 @@ struct MovieListCell: View {
             ) { phase in
                 switch phase {
                     case .empty:
-                        let _ = print("loading \(movie.title) \(movie.posterPath)")
                         ProgressView()
                     case .success(let image):
                         image.resizable()

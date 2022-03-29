@@ -42,9 +42,8 @@ struct CreditCell: View {
             CachedAsyncImage(url: imageUrl) { phase in
                 switch (phase) {
                 case .empty:
-                    let _ = print("loading \(credit.name!)")
                     ProgressView()
-                case .failure(let error):
+                case .failure:
                     Image(systemName: "photo")
                 case .success(let image):
                     image
