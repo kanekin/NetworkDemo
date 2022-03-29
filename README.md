@@ -33,6 +33,4 @@ The main purpose of the app is to demostrate how an app can be structured. It is
   - browse crew
 
 ## How it looks:
-```none
-[![Watch the video](https://img.youtube.com/vi/iM-mfaJs6Bg/maxresdefault.jpg)](https://youtu.be/iM-mfaJs6Bg)
-```
+[![Watch the video](https://img.youtube.com/vi/iM-mfaJs6Bg/hqdefault.jpg)](https://youtu.be/iM-mfaJs6Bg)
