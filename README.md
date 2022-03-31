@@ -6,10 +6,10 @@ An app to demonstrate how network calls can be implemented in a SwiftUI/MVVM app
 
 ## Motivations
 
-Apple's introductory tutorial is a great starting point to learn about SwiftUI (https://developer.apple.com/tutorials/swiftui). However, it doesn't cover many things that an app in a production app would need:
+Apple's introductory tutorial is a great starting point to learn about SwiftUI (https://developer.apple.com/tutorials/swiftui). However, it doesn't cover many things required in an actual production app:
 
 - Network calls
-- Being able to communicate with many endpoints without code duplication
+  - Communicating with many endpoints without code duplication
 - Concurrency
   - Network calls that depend on the other calls' results
   - Error handling
