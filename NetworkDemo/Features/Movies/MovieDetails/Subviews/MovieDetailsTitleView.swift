@@ -46,7 +46,7 @@ struct MovieDetailsTitleView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(maxHeight: 500)
                             .clipped()
-                    case .failure(let error):
+                    case .failure:
                         Image(systemName: "photo")
                     @unknown default:
                         EmptyView()

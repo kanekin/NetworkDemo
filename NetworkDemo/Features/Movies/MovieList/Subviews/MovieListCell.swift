@@ -47,7 +47,7 @@ struct MovieListCell: View {
                     case .success(let image):
                         image.resizable()
                             .aspectRatio(contentMode: .fit)
-                    case .failure(let error):
+                    case .failure:
                         Image(systemName: "photo")
                     @unknown default:
                         EmptyView()

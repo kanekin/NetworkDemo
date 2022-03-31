@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import os.log
 
 struct CachedAsyncImage<Content>: View where Content: View {
     
@@ -58,7 +59,7 @@ struct CachedAsyncImage_Previews: PreviewProvider {
                         ProgressView()
                     case .success(let image):
                         image
-                    case .failure(let error):
+                    case .failure:
                         Image(systemName: "photo")
                     @unknown default:
                         fatalError()

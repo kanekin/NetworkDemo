@@ -40,7 +40,7 @@ extension AppError.Enums.NetworkError: LocalizedError {
             case .invalidResponse: return "Invalid response"
             case .parsing(let error): return "Parsing error: \(error)"
             case .custom(_, let errorDescription): return errorDescription
-            case .unknown(let error): return "Unknown error: \(error)"
+            case .unknown(let error): return "Unknown error: \(error?.localizedDescription ?? "")"
         }
     }
 

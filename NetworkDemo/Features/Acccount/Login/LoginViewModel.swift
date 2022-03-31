@@ -11,6 +11,7 @@ import os.log
 class LoginViewModel: ObservableObject {
     private let loginNetworkHandler: LoginNetworkHandling
     private let sessionStorage: SessionStoring
+    @Published var errorMessage: String?
     
     @Published var sessionId: String? {
         didSet {
@@ -29,13 +30,21 @@ class LoginViewModel: ObservableObject {
         do {
             // Get a request token
             let tokenResponse = try await loginNetworkHandler.getRequestToken()
-            guard let requestToken = tokenResponse.requestToken else { return }
+            guard let success = tokenResponse.success, success,
+                  let requestToken = tokenResponse.requestToken else {
+                      Logger.network.error("Failed to get a request token")
+                      errorMessage = "Login failed"
+                      return
+                  }
             
             // Validate the request token with credentials
             let validatedTokenResponse = try await loginNetworkHandler.validateToken(username: username, password: password, token: requestToken)
-            guard let requestToken = validatedTokenResponse.requestToken else {
-                return
-            }
+            guard let success = tokenResponse.success, success,
+                  let requestToken = validatedTokenResponse.requestToken else {
+                      Logger.network.error("Failed to validate the request token")
+                      errorMessage = "Login failed"
+                      return
+                  }
             
             // Create a valid session
             let sessionResponse = try await loginNetworkHandler.createSession(token: requestToken)
@@ -43,13 +52,43 @@ class LoginViewModel: ObservableObject {
                     success,
                     let sessionId = sessionResponse.sessionId else {
                 Logger.network.debug("Failed to create a valid session ID")
+                errorMessage = "Login failed"
                 return
             }
             
             // Store Session Id
             self.sessionId = sessionId
         } catch {
-            Logger.network.debug("Error during submitting login: \(error.localizedDescription)")
+            Logger.network.error("Error during submitting login: \(error.localizedDescription)")
+            guard let appError = error as? AppError else { return }
+            
+            switch appError {
+            case let .network(type: type):
+                handleNetworkError(type: type)
+            case .custom:
+                errorMessage = "Login failed"
+            }
+        }
+    }
+    
+    private func handleNetworkError(type: AppError.Enums.NetworkError) {
+        switch type {
+        case .invalidResponse:
+            errorMessage = "Login failed"
+        case .noInternet:
+            errorMessage = "No Internet"
+        case .parsing(error: let error):
+            Logger.network.error("Parsing error: \(error.localizedDescription)")
+            errorMessage = "Login failed"
+        case .custom(errorCode: let errorCode, errorDescription: _):
+            if errorCode == 401 {
+                errorMessage = "Incorrect username and password"
+            } else {
+                errorMessage = "Login failed"
+            }
+        case .unknown(error: let error):
+            Logger.network.error("Unknown error: \(error.map { $0.localizedDescription } ?? "")")
+            errorMessage = "Login failed"
         }
     }
 }

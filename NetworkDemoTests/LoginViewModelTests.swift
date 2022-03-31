@@ -11,6 +11,7 @@ import XCTest
 class LoginViewModelTests: XCTestCase {
 
     func testLogin_Success() async {
+        // Arrange:
         let mockLoginNetworkHandler = MockLoginNetworkHandler(
             onGetRequestToken: {
                 return .init(success: true, expiresAt: nil, requestToken: "token")
@@ -24,12 +25,16 @@ class LoginViewModelTests: XCTestCase {
         )
         
         let viewModel = LoginViewModel(loginNetworkHandler: mockLoginNetworkHandler, sessionStorage: MockSessionStorage())
+        
+        // Act:
         await viewModel.submitLogin(username: "username", password: "password")
-        let sessionId = viewModel.sessionId
-        XCTAssertNotNil(sessionId)
+        
+        // Assert:
+        XCTAssertNotNil(viewModel.sessionId)
     }
 
     func testLogin_failsOnCreatingSession() async {
+        //Arrange
         let mockLoginNetworkHandler = MockLoginNetworkHandler(
             onGetRequestToken: {
                 return .init(success: true, expiresAt: nil, requestToken: "token")
@@ -41,14 +46,17 @@ class LoginViewModelTests: XCTestCase {
                 return .init(success: false, sessionId: "sessionId")
             }
         )
-        
         let viewModel = LoginViewModel(loginNetworkHandler: mockLoginNetworkHandler, sessionStorage: MockSessionStorage())
+        
+        // Act:
         await viewModel.submitLogin(username: "username", password: "password")
-        let sessionId = viewModel.sessionId
-        XCTAssertNil(sessionId)
+        
+        // Assert:
+        XCTAssertNil(viewModel.sessionId)
     }
     
-    func testLogin_throwsOnCreatingSession() async {
+    func testLogin_throwsOnCreatingSession_errorMessageIsPresent() async {
+        // Arrange:
         let mockLoginNetworkHandler = MockLoginNetworkHandler(
             onGetRequestToken: {
                 return .init(success: true, expiresAt: nil, requestToken: "token")
@@ -62,9 +70,13 @@ class LoginViewModelTests: XCTestCase {
         )
         
         let viewModel = LoginViewModel(loginNetworkHandler: mockLoginNetworkHandler, sessionStorage: MockSessionStorage())
+        
+        // Act:
         await viewModel.submitLogin(username: "username", password: "password")
-        let sessionId = viewModel.sessionId
-        XCTAssertNil(sessionId)
+        
+        // Assert:
+        XCTAssertNil(viewModel.sessionId)
+        XCTAssertNotNil(viewModel.errorMessage)
     }
 }
 
