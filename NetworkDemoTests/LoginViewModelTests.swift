@@ -52,7 +52,7 @@ class LoginViewModelTests: XCTestCase {
 class MockSessionStorage: SessionStoring {
     
     var sessionId: String?
-    func setSession(id: String?) async {
+    func setSession(id: String?) {
         sessionId = id
     }
 }

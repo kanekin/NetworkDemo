@@ -18,7 +18,7 @@ class ViewModelFactory {
     
     @MainActor
     func makeMovieListViewModel(coordinator: MoviesCoordinating) -> MovieListViewModel {
-        return MovieListViewModel(coordinator: coordinator, networkService: networkService)
+        return MovieListViewModel(coordinator: coordinator, loader: MovieListLoader(networkService: networkService))
     }
     
     @MainActor

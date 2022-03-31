@@ -61,7 +61,7 @@ protocol LoginNetworkHandling {
     func createSession(token: String) async throws -> DataModel.Authentication.Session
 }
 
-struct LoginNetworkHandler: LoginNetworkHandling {
+class LoginNetworkHandler: LoginNetworkHandling {
     let networkService: NetworkServicing
     
     init(networkService: NetworkServicing) {
