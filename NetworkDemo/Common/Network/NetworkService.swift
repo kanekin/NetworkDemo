@@ -41,6 +41,10 @@ class NetworkService: NetworkServicing {
             return try decoder.decode(resource.responseType, from: data)
             
         } catch {
+            if let error = error as? AppError {
+                throw error
+            }
+            
             let error = error as NSError
             if error.domain == NSURLErrorDomain,
                 error.code == NSURLErrorNotConnectedToInternet {

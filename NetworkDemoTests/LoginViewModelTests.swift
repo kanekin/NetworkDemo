@@ -8,6 +8,7 @@
 import XCTest
 @testable import NetworkDemo
 
+@MainActor
 class LoginViewModelTests: XCTestCase {
 
     func testLogin_Success() async {
@@ -77,6 +78,30 @@ class LoginViewModelTests: XCTestCase {
         // Assert:
         XCTAssertNil(viewModel.sessionId)
         XCTAssertNotNil(viewModel.errorMessage)
+    }
+    
+    func testLogin_throwsOnValidate_errorMessageIsPresent() async {
+        // Arrange:
+        let mockLoginNetworkHandler = MockLoginNetworkHandler(
+            onGetRequestToken: {
+                return .init(success: true, expiresAt: nil, requestToken: "token")
+            },
+            onValidateToken: { token in
+                throw AppError.network(type: .custom(errorCode: 401, errorDescription: ""))
+            },
+            onCreateSession: {
+                throw AppError.network(type: .invalidResponse)
+            }
+        )
+        
+        let viewModel = LoginViewModel(loginNetworkHandler: mockLoginNetworkHandler, sessionStorage: MockSessionStorage())
+        
+        // Act:
+        await viewModel.submitLogin(username: "username", password: "password")
+        
+        // Assert:
+        XCTAssertNil(viewModel.sessionId)
+        XCTAssertEqual(viewModel.errorMessage, "Incorrect username and password")
     }
 }
 

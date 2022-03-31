@@ -8,6 +8,7 @@
 import Foundation
 import os.log
 
+@MainActor
 class LoginViewModel: ObservableObject {
     private let loginNetworkHandler: LoginNetworkHandling
     private let sessionStorage: SessionStoring

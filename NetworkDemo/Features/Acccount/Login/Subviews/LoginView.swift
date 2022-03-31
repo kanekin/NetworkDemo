@@ -9,9 +9,10 @@ import SwiftUI
 
 struct LoginView: View {
     let submitLogin: (String, String) -> ()
+    @Binding var errorMessage: String?
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Image("OneFlewOverTheCuckoosNest")
                 .resizable()
                 .clipped()
@@ -29,9 +30,18 @@ struct LoginView: View {
                         .frame(maxHeight: .infinity, alignment: .bottom)
                         .padding()
                 }
-            LoginFieldsView(handleLogin: { username, password in
-                submitLogin(username, password)
-            })
+            LoginFieldsView(
+                handleLogin: { username, password in
+                    submitLogin(username, password)
+                }
+            )
+            
+            if let errorMessage = errorMessage {
+                Text(errorMessage)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.red)
+                    .padding()
+            }
             
             Spacer()
         }
@@ -41,7 +51,7 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView(
-            submitLogin: { _,_ in }
+            submitLogin: { _,_ in }, errorMessage: .constant(nil)
         )
     }
 }
