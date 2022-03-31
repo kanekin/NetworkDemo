@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieListScreen: View {
    
     @ObservedObject var viewModel: MovieListViewModel
-    @State var selection: Int?
+    @State private var selection: Int?
     
     var body: some View {
         List(viewModel.movies) { movie in

@@ -14,7 +14,7 @@ enum HomeTab {
 
 struct ContentView: View {
     
-    let viewModelFactory = ViewModelFactory()
+    private let viewModelFactory = ViewModelFactory()
     
     var body: some View {
         TabView {

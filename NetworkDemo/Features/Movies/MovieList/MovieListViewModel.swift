@@ -12,7 +12,7 @@ import os.log
 @MainActor
 class MovieListViewModel: ObservableObject {
     private weak var coordinator: MoviesCoordinating?
-    let loader: MovieListLoading
+    private let loader: MovieListLoading
     @Published var movies: [DataModel.Movie] = []
     @Published var selectedMovieDetailsViewModel: MovieDetailsViewModel? = nil
    

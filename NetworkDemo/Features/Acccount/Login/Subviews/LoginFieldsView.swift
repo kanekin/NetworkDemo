@@ -13,8 +13,8 @@ struct LoginFieldsView: View {
         case password
     }
     
-    @State var email: String = ""
-    @State var password: String = ""
+    @State private var email: String = ""
+    @State private var password: String = ""
 
     @FocusState private var focusedField: Field?
     let handleLogin: (String, String) -> ()

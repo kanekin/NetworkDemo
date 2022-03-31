@@ -9,9 +9,9 @@ import SwiftUI
 
 struct AccountOptionsScreen: View {
     let viewModelFactory: ViewModelFactory
-    @State var isSignInVisible: Bool = false
-    @State var isCreateAccountVisible: Bool = false
-    @AppStorage("sessionId") var sessionId: String?
+    @State private var isSignInVisible: Bool = false
+    @State private var isCreateAccountVisible: Bool = false
+    @AppStorage("sessionId") private var sessionId: String?
     
     var body: some View {
         VStack {

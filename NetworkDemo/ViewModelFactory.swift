@@ -8,11 +8,11 @@
 import Foundation
 
 class ViewModelFactory {
-    lazy var networkService: NetworkService = {
+    private lazy var networkService: NetworkService = {
         return NetworkService()
     }()
     
-    lazy var sessionStorage: SessionStorage = {
+    private lazy var sessionStorage: SessionStorage = {
         return SessionStorage()
     }()
     

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct LoginSuccessView: View {
-    @State var circlePercentage = 0.0
-    @State var checkMarkOffset = -100.0
-    @State var textOpacity = 0.0
+    @State private var circlePercentage = 0.0
+    @State private var checkMarkOffset = -100.0
+    @State private var textOpacity = 0.0
     let onAnimationCompleted: () -> ()
     
     var body: some View {

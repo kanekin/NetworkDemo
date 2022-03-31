@@ -25,7 +25,7 @@ class LoginViewModelTests: XCTestCase {
         
         let viewModel = LoginViewModel(loginNetworkHandler: mockLoginNetworkHandler, sessionStorage: MockSessionStorage())
         await viewModel.submitLogin(username: "username", password: "password")
-        let sessionId = await viewModel.sessionId
+        let sessionId = viewModel.sessionId
         XCTAssertNotNil(sessionId)
     }
 
@@ -44,7 +44,26 @@ class LoginViewModelTests: XCTestCase {
         
         let viewModel = LoginViewModel(loginNetworkHandler: mockLoginNetworkHandler, sessionStorage: MockSessionStorage())
         await viewModel.submitLogin(username: "username", password: "password")
-        let sessionId = await viewModel.sessionId
+        let sessionId = viewModel.sessionId
+        XCTAssertNil(sessionId)
+    }
+    
+    func testLogin_throwsOnCreatingSession() async {
+        let mockLoginNetworkHandler = MockLoginNetworkHandler(
+            onGetRequestToken: {
+                return .init(success: true, expiresAt: nil, requestToken: "token")
+            },
+            onValidateToken: { token in
+                return .init(success: true, expiresAt: nil, requestToken: token)
+            },
+            onCreateSession: {
+                throw AppError.network(type: .invalidResponse)
+            }
+        )
+        
+        let viewModel = LoginViewModel(loginNetworkHandler: mockLoginNetworkHandler, sessionStorage: MockSessionStorage())
+        await viewModel.submitLogin(username: "username", password: "password")
+        let sessionId = viewModel.sessionId
         XCTAssertNil(sessionId)
     }
 }

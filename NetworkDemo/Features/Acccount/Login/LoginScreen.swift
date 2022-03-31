@@ -32,12 +32,3 @@ struct LoginScreen: View {
     }
 }
 
-//struct LoginScreen__Previews: PreviewProvider {
-//    static var previews: some View {
-//        LoginScreen(
-//            viewModel: vieMo,
-//            isPresented: .constant(true)
-//        )
-////            .preferredColorScheme(.dark)
-//    }
-//}

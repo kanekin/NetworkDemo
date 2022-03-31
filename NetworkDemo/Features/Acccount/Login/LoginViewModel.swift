@@ -9,8 +9,8 @@ import Foundation
 import os.log
 
 class LoginViewModel: ObservableObject {
-    let loginNetworkHandler: LoginNetworkHandling
-    let sessionStorage: SessionStoring
+    private let loginNetworkHandler: LoginNetworkHandling
+    private let sessionStorage: SessionStoring
     
     @Published var sessionId: String? {
         didSet {
@@ -48,7 +48,6 @@ class LoginViewModel: ObservableObject {
             
             // Store Session Id
             self.sessionId = sessionId
-            // Dismiss the screen
         } catch {
             Logger.network.debug("Error during submitting login: \(error.localizedDescription)")
         }

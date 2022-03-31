@@ -10,8 +10,7 @@ import SwiftUI
 struct MovieListCell: View {
     private let imageHeight = 120.0
     private let verticalPadding = 8.0
-    
-    var movie: DataModel.Movie
+    let movie: DataModel.Movie
     
     var body: some View {
         HStack(spacing: 12.0) {
