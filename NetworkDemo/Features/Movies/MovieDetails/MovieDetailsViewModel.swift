@@ -11,8 +11,8 @@ import os.log
 
 @MainActor
 class MovieDetailsViewModel: ObservableObject {
-    let id: Int
-    let networkService: NetworkService
+    private let id: Int
+    private let networkService: NetworkService
     @Published var movieDetails: DataModel.Movie.Details?
     @Published var credits: DataModel.Movie.Credits?
     

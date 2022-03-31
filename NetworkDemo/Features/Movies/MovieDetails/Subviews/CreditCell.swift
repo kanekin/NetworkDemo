@@ -15,8 +15,7 @@ protocol Credit {
 }
 
 struct CreditCell: View {
-    
-    var credit: Credit
+    let credit: Credit
     
     var body: some View {
         HStack {

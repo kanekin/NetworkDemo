@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieDetailsView: View {
     let details: DataModel.Movie.Details?
     @Binding var credits: DataModel.Movie.Credits?
-    @State var creditType: CreditType = .cast
+    @State private var creditType: CreditType = .cast
     
     var body: some View {
         ScrollView {
