@@ -29,6 +29,10 @@ class NetworkService: NetworkServicing {
             guard let response = response as? HTTPURLResponse else {
                 throw AppError.network(type: .invalidResponse)
             }
+            
+            if response.statusCode == 401 {
+                throw AppError.network(type: .unauthenticated)
+            }
 
             if !(200..<300 ~= response.statusCode) {
                 throw AppError.network(
@@ -41,9 +45,7 @@ class NetworkService: NetworkServicing {
             return try decoder.decode(resource.responseType, from: data)
             
         } catch {
-            if let error = error as? AppError {
-                throw error
-            }
+            if let error = error as? AppError { throw error }
             
             let error = error as NSError
             if error.domain == NSURLErrorDomain,

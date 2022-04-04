@@ -75,18 +75,21 @@ class LoginViewModel: ObservableObject {
     private func handleNetworkError(type: AppError.Enums.NetworkError) {
         switch type {
         case .invalidResponse:
+            // Unrecoverable from the client side. Important to notify remote logging.
             errorMessage = "Login failed"
         case .noInternet:
+            // Recoverable by the user or the client
             errorMessage = "No Internet"
         case .parsing(error: let error):
+            // Unrecoverable from the client side. Important to notify remote logging.
             Logger.network.error("Parsing error: \(error.localizedDescription)")
             errorMessage = "Login failed"
+        case .unauthenticated:
+            // Recoverable by the user
+            errorMessage = "Incorrect username and password"
         case .custom(errorCode: let errorCode, errorDescription: _):
-            if errorCode == 401 {
-                errorMessage = "Incorrect username and password"
-            } else {
-                errorMessage = "Login failed"
-            }
+            // Unrecoverable. Could be more distincition
+            errorMessage = "Login failed"
         case .unknown(error: let error):
             Logger.network.error("Unknown error: \(error.map { $0.localizedDescription } ?? "")")
             errorMessage = "Login failed"

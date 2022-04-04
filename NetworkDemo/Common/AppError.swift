@@ -27,6 +27,7 @@ extension AppError.Enums {
     enum NetworkError {
         case invalidResponse
         case noInternet
+        case unauthenticated
         case parsing(error: Error)
         case custom(errorCode: Int?, errorDescription: String?)
         case unknown(error: Error?)
@@ -38,6 +39,7 @@ extension AppError.Enums.NetworkError: LocalizedError {
         switch self {
             case .noInternet: return "No Internet"
             case .invalidResponse: return "Invalid response"
+            case .unauthenticated: return "Unauthenticated User"
             case .parsing(let error): return "Parsing error: \(error)"
             case .custom(_, let errorDescription): return errorDescription
             case .unknown(let error): return "Unknown error: \(error?.localizedDescription ?? "")"
@@ -48,6 +50,7 @@ extension AppError.Enums.NetworkError: LocalizedError {
         switch self {
             case .noInternet: return nil
             case .invalidResponse: return nil
+            case .unauthenticated: return nil
             case .parsing: return nil
             case .custom(let errorCode, _): return errorCode
             case .unknown: return nil
