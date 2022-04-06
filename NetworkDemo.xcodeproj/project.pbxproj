@@ -12,6 +12,8 @@
 		2355347827ECD331001FD1AF /* MoviesCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2355347727ECD331001FD1AF /* MoviesCoordinatorView.swift */; };
 		2355348B27EDCB2D001FD1AF /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2355348A27EDCB2D001FD1AF /* LoginViewModelTests.swift */; };
 		2355348F27EF405B001FD1AF /* SessionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2355348E27EF405B001FD1AF /* SessionStorage.swift */; };
+		23AA661D27FDEFD400A28F96 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 23AA661C27FDEFD400A28F96 /* SwiftKeychainWrapper */; };
+		23AA662827FE0FC300A28F96 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AA662727FE0FC300A28F96 /* AppState.swift */; };
 		23ABD18527DF74550073D9EF /* CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD18427DF74550073D9EF /* CreditCell.swift */; };
 		23ABD18727DF95D30073D9EF /* AverageRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD18627DF95D30073D9EF /* AverageRateView.swift */; };
 		23ABD18927DF9AD50073D9EF /* SubmitRateButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABD18827DF9AD50073D9EF /* SubmitRateButtonView.swift */; };
@@ -66,6 +68,7 @@
 		2355347727ECD331001FD1AF /* MoviesCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesCoordinatorView.swift; sourceTree = "<group>"; };
 		2355348A27EDCB2D001FD1AF /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		2355348E27EF405B001FD1AF /* SessionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStorage.swift; sourceTree = "<group>"; };
+		23AA662727FE0FC300A28F96 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		23ABD18427DF74550073D9EF /* CreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCell.swift; sourceTree = "<group>"; };
 		23ABD18627DF95D30073D9EF /* AverageRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageRateView.swift; sourceTree = "<group>"; };
 		23ABD18827DF9AD50073D9EF /* SubmitRateButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitRateButtonView.swift; sourceTree = "<group>"; };
@@ -111,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23AA661D27FDEFD400A28F96 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,9 +251,10 @@
 				23E146F927DBA418008FC97B /* Views */,
 				23AFF70027DB590E00FB612D /* Network */,
 				23AFF70327DB599700FB612D /* Data */,
-				23AFF71127DB622300FB612D /* AppError.swift */,
 				23AFF71727DB81D300FB612D /* Extension */,
 				23E6816A27EC7EEB009E87D8 /* Modifier */,
+				23AA662727FE0FC300A28F96 /* AppState.swift */,
+				23AFF71127DB622300FB612D /* AppError.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -365,6 +370,9 @@
 			dependencies = (
 			);
 			name = NetworkDemo;
+			packageProductDependencies = (
+				23AA661C27FDEFD400A28F96 /* SwiftKeychainWrapper */,
+			);
 			productName = NetworkDemo;
 			productReference = 23AFF6CB27DB4BDC00FB612D /* NetworkDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -415,6 +423,9 @@
 				Base,
 			);
 			mainGroup = 23AFF6C227DB4BDC00FB612D;
+			packageReferences = (
+				23AA661B27FDEFD400A28F96 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+			);
 			productRefGroup = 23AFF6CC27DB4BDC00FB612D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -455,6 +466,7 @@
 				23E146FB27DBA428008FC97B /* CachedAsyncImage.swift in Sources */,
 				23ABD18727DF95D30073D9EF /* AverageRateView.swift in Sources */,
 				23E1470527DCF11F008FC97B /* MovieDetailsView.swift in Sources */,
+				23AA662827FE0FC300A28F96 /* AppState.swift in Sources */,
 				23AFF71227DB622300FB612D /* AppError.swift in Sources */,
 				23AFF6CF27DB4BDC00FB612D /* NetworkDemoApp.swift in Sources */,
 				23E6811027E38767009E87D8 /* DataModel.swift in Sources */,
@@ -754,6 +766,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		23AA661B27FDEFD400A28F96 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		23AA661C27FDEFD400A28F96 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23AA661B27FDEFD400A28F96 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 23AFF6C327DB4BDC00FB612D /* Project object */;
 }

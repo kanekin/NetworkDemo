@@ -7,12 +7,14 @@
 
 import Foundation
 import os.log
+import SwiftUI
 
 @MainActor
 class LoginViewModel: ObservableObject {
     private let loginNetworkHandler: LoginNetworkHandling
     private let sessionStorage: SessionStoring
     @Published var errorMessage: String?
+    private var appState: AppState?
     
     @Published var sessionId: String? {
         didSet {
@@ -26,7 +28,10 @@ class LoginViewModel: ObservableObject {
         self.sessionId = sessionStorage.sessionId
     }
     
-    
+    func set(appState: AppState) {
+        self.appState = appState
+    }
+     
     func submitLogin(username: String, password: String) async {
         do {
             // Get a request token
@@ -59,6 +64,8 @@ class LoginViewModel: ObservableObject {
             
             // Store Session Id
             self.sessionId = sessionId
+            appState?.isLoggedIn = true
+            
         } catch {
             Logger.network.error("Error during submitting login: \(error.localizedDescription)")
             guard let appError = error as? AppError else { return }

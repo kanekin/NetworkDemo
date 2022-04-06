@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 protocol SessionStoring {
     var sessionId: String? { get }
@@ -19,11 +20,15 @@ class SessionStorage: SessionStoring {
     
     var sessionId: String? {
         get {
-            UserDefaults.standard.string(forKey: SessionStorage.sessionIdKey)
+            KeychainWrapper.standard.string(forKey: SessionStorage.sessionIdKey)
         }
     }
     
     func setSession(id: String?) {
-        UserDefaults.standard.set(id, forKey: SessionStorage.sessionIdKey)
+        guard let id = id else {
+            KeychainWrapper.standard.removeObject(forKey: SessionStorage.sessionIdKey)
+            return
+        }
+        KeychainWrapper.standard.set(id, forKey: SessionStorage.sessionIdKey)
     }
 }

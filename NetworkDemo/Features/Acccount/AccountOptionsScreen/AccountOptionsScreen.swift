@@ -11,26 +11,18 @@ struct AccountOptionsScreen: View {
     let viewModelFactory: ViewModelFactory
     @State private var isSignInVisible: Bool = false
     @State private var isCreateAccountVisible: Bool = false
-    @AppStorage("sessionId") private var sessionId: String?
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         VStack {
             AccountOptionsView(
-                isLoggedIn: Binding(
-                    get: {
-                        sessionId != nil
-                    },
-                    set: { transaction in
-                        if transaction == false {
-                            sessionId = nil
-                        }
-                    }
-                ),
+                isLoggedIn: $appState.isLoggedIn,
                 onLoginPressed: {
                     isSignInVisible = true
                 },
                 onLogoutPressed: {
-                    sessionId = nil
+                    appState.isLoggedIn = false
+                    SessionStorage().setSession(id: nil)
                 })
         }
         .sheet(
@@ -44,5 +36,3 @@ struct AccountOptionsScreen: View {
         ) 
     }
 }
-
-

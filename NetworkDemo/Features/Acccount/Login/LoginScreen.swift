@@ -11,7 +11,7 @@ import os.log
 struct LoginScreen: View {
     @ObservedObject var viewModel: LoginViewModel
     @Binding var isPresented: Bool
-    @AppStorage("sessionId") var sessionId: String?
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         VStack {
@@ -30,6 +30,7 @@ struct LoginScreen: View {
                 })
             }
         }
+        .onAppear(perform: { viewModel.set(appState: appState) })
         .ignoresSafeArea(edges: [.top])
         .background(Color.systemBackground)
     }

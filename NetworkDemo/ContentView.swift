@@ -29,6 +29,7 @@ struct ContentView: View {
                 }
                 .tag(HomeTab.list)
         }
+        .environmentObject(AppState(isLoggedIn: SessionStorage().sessionId != nil))
     }
 }
 
